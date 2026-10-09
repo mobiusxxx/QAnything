@@ -99,11 +99,6 @@
 ### 010-82558901
 ![](docs/images/business.jpeg)
 
-商务合作请通过以下电话或邮箱联系我们：
-
-- 联系电话：010-82558901
-- 邮箱：AIcloud_Business@corp.youdao.com
-
 # 什么是QAnything？
 **QAnything** (**Q**uestion and **A**nswer based on **Anything**) 是致力于支持任意格式文件或数据库的本地知识库问答系统，可断网安装使用。
 
@@ -403,11 +398,10 @@ docker pull quay.io/coreos/etcd:v3.5.5
 docker pull minio/minio:RELEASE.2023-03-20T20-16-18Z
 docker pull milvusdb/milvus:v2.4.8
 docker pull mysql:8.4
-docker pull docker.elastic.co/elasticsearch/elasticsearch:8.13.2
 docker pull xixihahaliu01/qanything-win:v1.5.1  # 从 [https://github.com/netease-youdao/QAnything/blob/master/docker-compose-windows.yaml#L103] 中获取最新镜像版本号。
 
 # 打包镜像
-docker save quay.io/coreos/etcd:v3.5.5 minio/minio:RELEASE.2023-03-20T20-16-18Z milvusdb/milvus:v2.4.8 mysql:8.4 docker.elastic.co/elasticsearch/elasticsearch:8.13.2 xixihahaliu01/qanything-win:v1.5.1 -o qanything_offline.tar
+docker save quay.io/coreos/etcd:v3.5.5 minio/minio:RELEASE.2023-03-20T20-16-18Z milvusdb/milvus:v2.4.8 mysql:8.4 xixihahaliu01/qanything-win:v1.5.1 -o qanything_offline.tar
 
 # 下载QAnything代码
 wget https://github.com/netease-youdao/QAnything/archive/refs/heads/master.zip
@@ -431,11 +425,10 @@ docker pull quay.io/coreos/etcd:v3.5.5
 docker pull minio/minio:RELEASE.2023-03-20T20-16-18Z
 docker pull milvusdb/milvus:v2.4.8
 docker pull mysql:8.4
-docker pull docker.elastic.co/elasticsearch/elasticsearch:8.13.2
 docker pull xixihahaliu01/qanything-linux:v1.5.1  # 从 [https://github.com/netease-youdao/qanything/blob/master/docker-compose-linux.yaml#L104] 中获取最新镜像版本号。
 
 # 打包镜像
-docker save quay.io/coreos/etcd:v3.5.5 minio/minio:RELEASE.2023-03-20T20-16-18Z milvusdb/milvus:v2.4.8 mysql:8.4 docker.elastic.co/elasticsearch/elasticsearch:8.13.2 xixihahaliu01/qanything-linux:v1.5.1 -o qanything_offline.tar
+docker save quay.io/coreos/etcd:v3.5.5 minio/minio:RELEASE.2023-03-20T20-16-18Z milvusdb/milvus:v2.4.8 mysql:8.4 xixihahaliu01/qanything-linux:v1.5.1 -o qanything_offline.tar
 
 # 下载QAnything代码
 wget https://github.com/netease-youdao/QAnything/archive/refs/heads/master.zip
@@ -488,8 +481,7 @@ docker compose -f docker-compose-linux.yaml up
 ## 邮箱
 如果你需要私信我们团队，请通过下面的邮箱联系我们：
 
-AIcloud_Business@corp.youdao.com
-
+qanything@rd.netease.com
 
 ## GitHub issues & discussions
 有任何公开的问题，欢迎提交issues，或者在discussions区讨论

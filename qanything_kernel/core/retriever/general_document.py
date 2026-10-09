@@ -6,7 +6,6 @@ from qanything_kernel.configs.model_config import UPLOAD_ROOT_PATH, LOCAL_OCR_SE
 from langchain.docstore.document import Document
 from qanything_kernel.utils.loader.my_recursive_url_loader import MyRecursiveUrlLoader
 from qanything_kernel.utils.custom_log import insert_logger
-from qanything_kernel.utils.path_security import safe_join, validate_filename
 from langchain_community.document_loaders import UnstructuredFileLoader, TextLoader
 from langchain_community.document_loaders import UnstructuredWordDocumentLoader
 from langchain_community.document_loaders import UnstructuredEmailLoader
@@ -14,7 +13,6 @@ from langchain_community.document_loaders import UnstructuredPowerPointLoader
 from qanything_kernel.utils.loader import UnstructuredPaddlePDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from qanything_kernel.utils.loader.csv_loader import CSVLoader
-from qanything_kernel.utils.loader.json_loader import JSONLoader
 from qanything_kernel.utils.loader.markdown_parser import convert_markdown_to_langchaindoc
 import asyncio
 import aiohttp
@@ -85,17 +83,12 @@ class LocalFileForInsert:
             self.faq_dict = {'question': question, 'answer': answer, 'nos_keys': nos_keys}
         elif self.file_location == 'URL':
             self.file_url = file_url
-            validate_filename(self.file_name)
-            upload_path = safe_join(UPLOAD_ROOT_PATH, user_id)
-            file_dir = safe_join(upload_path, self.kb_id, self.file_id)
+            upload_path = os.path.join(UPLOAD_ROOT_PATH, user_id)
+            file_dir = os.path.join(upload_path, self.kb_id, self.file_id)
             os.makedirs(file_dir, exist_ok=True)
-            self.file_path = safe_join(upload_path, self.kb_id, self.file_id, self.file_name)
+            self.file_path = os.path.join(file_dir, self.file_name)
         else:
-            # Rebuild the expected path from trusted identifiers instead of
-            # trusting a path persisted in the database.
-            validate_filename(self.file_name)
-            upload_path = safe_join(UPLOAD_ROOT_PATH, user_id)
-            self.file_path = safe_join(upload_path, self.kb_id, self.file_id, self.file_name)
+            self.file_path = self.file_location
         self.event = threading.Event()
 
     @staticmethod
@@ -447,9 +440,6 @@ class LocalFileForInsert:
             docs = loader.load()
         elif self.file_path.lower().endswith(".eml"):
             loader = UnstructuredEmailLoader(self.file_path, strategy="fast")
-            docs = loader.load()
-        elif self.file_path.lower().endswith(".json"):
-            loader = JSONLoader(self.file_path)
             docs = loader.load()
         elif self.file_path.lower().endswith(".csv"):
             loader = CSVLoader(self.file_path, autodetect_encoding=True, csv_args={"delimiter": ",", "quotechar": '"'})
